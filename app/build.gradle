@@ -28,6 +28,7 @@ android {
   dataBinding {
     enabled true
   }
+    namespace 'com.yourcompany.gobuy'
 }
 
 dependencies {

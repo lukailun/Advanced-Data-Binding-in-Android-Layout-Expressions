@@ -37,6 +37,7 @@ class GroceryListActivity : AppCompatActivity(), NewItemDialogFragment.NewItemDi
         binding.addItemButton.setOnClickListener {
             addGroceryItem()
         }
+        binding.total = viewModel.getTotal()
     }
 
     private fun addGroceryItem() {
@@ -57,7 +58,7 @@ class GroceryListActivity : AppCompatActivity(), NewItemDialogFragment.NewItemDi
     private fun deleteGroceryItem(position: Int) {
         Log.d("GoBuy", "delete")
         viewModel.removeItem(position)
-        binding.totalAmount = viewModel.getTotal().toString()
+        binding.total = viewModel.getTotal()
         binding.rvGroceryList.adapter?.notifyDataSetChanged()
     }
 
@@ -73,7 +74,7 @@ class GroceryListActivity : AppCompatActivity(), NewItemDialogFragment.NewItemDi
             viewModel.updateItem(position!!, item)
             binding.rvGroceryList.adapter?.notifyDataSetChanged()
         }
-        binding.totalAmount = String.format("%.2f", viewModel.getTotal())
+        binding.total = viewModel.getTotal()
         Snackbar.make(binding.addItemButton, "Item Added Successfully", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
     }

@@ -10,8 +10,8 @@ import com.yourcompany.gobuy.databinding.GroceryListItemBinding
 import com.yourcompany.gobuy.model.GroceryItem
 
 class GroceryAdapter(
-    val items: ArrayList<GroceryItem>,
-    val context: Context,
+    private val items: ArrayList<GroceryItem>,
+    private val context: Context,
     val itemEditListener: (position: Int) -> Unit,
     val itemDeleteListener: (position: Int) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
@@ -25,20 +25,18 @@ class GroceryAdapter(
             R.layout.grocery_list_item,
             parent, false
         )
+        binding.adapter = this
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-        val description = item.amount.toString() + "x: " + item.itemName
         holder.bind(items[position])
-        holder.binding.buttonEdit.setOnClickListener { itemEditListener(position) }
-        holder.binding.buttonDelete.setOnClickListener { itemDeleteListener(position) }
     }
 }
 
 class ViewHolder(val binding: GroceryListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: GroceryItem) {
         binding.item = item
+        binding.position = adapterPosition
     }
 }

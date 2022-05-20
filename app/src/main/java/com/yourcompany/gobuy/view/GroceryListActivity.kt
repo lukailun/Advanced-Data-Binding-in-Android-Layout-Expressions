@@ -2,9 +2,11 @@ package com.yourcompany.gobuy.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +23,14 @@ class GroceryListActivity : AppCompatActivity(), NewItemDialogFragment.NewItemDi
     lateinit var viewModel: GroceryListViewModel
     private lateinit var binding: ActivityGroceryListBinding
 
+    class Listeners(private val supportedFragmentManager: FragmentManager) {
+        fun onAddGroceryItemClick(view: View) {
+            val newFragment =
+                NewItemDialogFragment.newInstance(R.string.add_new_item_dialog_title, null)
+            newFragment.show(supportedFragmentManager, "newItem")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
 
@@ -34,16 +44,8 @@ class GroceryListActivity : AppCompatActivity(), NewItemDialogFragment.NewItemDi
         binding.rvGroceryList.adapter =
             GroceryAdapter(viewModel.groceryListItems, this, ::editGroceryItem, ::deleteGroceryItem)
 
-        binding.addItemButton.setOnClickListener {
-            addGroceryItem()
-        }
         binding.total = viewModel.getTotal()
-    }
-
-    private fun addGroceryItem() {
-        val newFragment =
-            NewItemDialogFragment.newInstance(R.string.add_new_item_dialog_title, null)
-        newFragment.show(supportFragmentManager, "newItem")
+        binding.listeners = Listeners(supportFragmentManager)
     }
 
     private fun editGroceryItem(position: Int) {

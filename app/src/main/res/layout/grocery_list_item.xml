@@ -8,6 +8,12 @@
         <variable
             name="item"
             type="com.yourcompany.gobuy.model.GroceryItem" />
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="adapter"
+            type="com.yourcompany.gobuy.view.GroceryAdapter" />
     </data>
 
     <LinearLayout
@@ -49,6 +55,7 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/button_edit"
                 android:src="@drawable/ic_action_edit"
+                android:onClick="@{() -> adapter.itemEditListener.invoke(position)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/button_delete"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -60,6 +67,7 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/button_delete"
                 android:src="@drawable/ic_action_trash"
+                android:onClick="@{() -> adapter.itemDeleteListener.invoke(position)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

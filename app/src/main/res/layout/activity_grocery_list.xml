@@ -9,6 +9,9 @@
         <variable
             name="total"
             type="Double" />
+        <variable
+            name="listeners"
+            type="com.yourcompany.gobuy.view.GroceryListActivity.Listeners" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +29,7 @@
             android:drawableStart="@drawable/plus_button"
             android:drawablePadding="10dp"
             android:text="@string/add_item"
+            android:onClick="@{listeners::onAddGroceryItemClick}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
